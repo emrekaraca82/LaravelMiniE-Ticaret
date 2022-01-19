@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +16,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+
+Route::group(['middleware'=>['auth','isAdmin'],'prefix'=>'admin'],function()
+{
+    route::get('category/{id}',[CategoryController::class, 'destroy'])->whereNumber('id')->name('category.destroy');
+    Route::resource('category',CategoryController::class);
+
+    route::get('product/{id}',[ProductController::class, 'destroy'])->whereNumber('id')->name('product.destroy');
+    Route::resource('product',ProductController::class);
+   
 });
