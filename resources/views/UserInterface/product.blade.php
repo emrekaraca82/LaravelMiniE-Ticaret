@@ -147,10 +147,10 @@
                         <!-- Product Meta Data -->
                         <div class="product-meta-data">
                             <div class="line"></div>
-                            <p class="product-price">{{$product->price}}€</p>
-                            <a href="{{url('category/'.$category->slug.'/'.$product->slug) }}">
-                                <h6>{{$product->baslik}}</h6>
-                            </a>
+                            <p class="product-price">{{$product->price}}$</p>                         
+                            <h6>{{$product->baslik}}</h6>     
+                            <a href="{{url('category/'.$category->slug.'/'.$product->slug) }}" style="color:white; display: inline-block;" class="btn-sm btn-warning" >Devamı oku</a>
+                        
                         </div>
                         <!-- Ratings & Cart -->
                         <div class="ratings-cart text-right">

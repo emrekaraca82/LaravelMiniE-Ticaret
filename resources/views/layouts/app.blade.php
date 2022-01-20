@@ -55,37 +55,22 @@
           <i class="fa fa-home mr-3"></i>
           <span>Anasayfa</span></a>
       </li>
-
-
-      <!-- Nav Item - Kullanıcı Collapse Menu -->
-      <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fa fa-user mr-3"></i>
-          <span>Kullanıcı</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">     
-            <a class="collapse-item" href="buttons.html">Kullanıcı Ekle</a>
-            <a class="collapse-item" href="cards.html">Tüm Kullanıcı</a>
+      @if(Auth::user()->type =='admin')
+        <!-- Nav Item - İçerik Collapse Menu -->
+        <li class="nav-item active active">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fa fa-paperclip mr-3"></i>
+            <span>Kategori </span>
+          </a>
+          <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">          
+              <a class="collapse-item" href="/admin/category/create">Kategori Ekle</a>
+              <a class="collapse-item" href="/admin/category">Kategori Listele</a>        
+            </div>
           </div>
-        </div>
-      </li>
-
-
-      <!-- Nav Item - İçerik Collapse Menu -->
-      <li class="nav-item active active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fa fa-paperclip mr-3"></i>
-          <span>Kategori </span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">          
-            <a class="collapse-item" href="/admin/category/create">Kategori Ekle</a>
-            <a class="collapse-item" href="/admin/category">Kategori Listele</a>        
-          </div>
-        </div>
-      </li>
-
+        </li>
+   
+  
         <!-- Nav Item - Slider Collapse Menu -->
         <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
@@ -100,7 +85,15 @@
         </div>
       </li>
 
-     
+      @endif
+
+      <li class="nav-item active">
+        <a class="nav-link" href="/" target="_blank">
+          <i class="fa fa-id-card mr-3"></i>
+          <span>Siteye Git</span>
+        </a>
+       
+      </li>
    
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">

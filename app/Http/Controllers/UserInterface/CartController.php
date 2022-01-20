@@ -14,6 +14,7 @@ class CartController extends Controller
     {
         $product_id = $request->input('product_id');
         $product_qty = $request->input('product_qty');
+
         if(Auth::check())
         {
             $product_check = Product::where('id',$product_id)->first();
@@ -24,7 +25,8 @@ class CartController extends Controller
                 {
                     return response()->json(['status' => $product_check->name."ürün sepette var"]);
                 }
-                else{
+                else
+                {
                     $cartItem = new Cart();
                     $cartItem->product_id = $product_id;
                     $cartItem->user_id = Auth::id();
@@ -43,6 +45,23 @@ class CartController extends Controller
         return view('UserInterface.cart',compact('cartItems'));
     }
 
+    public function updateProduct(Request $request)
+    {
+        $product_id = $request->input('product_id');
+        $product_qty = $request->input('product_qty');
+       
+        if(Auth::check())
+        {
+            if(Cart::where('product_id',$product_id)->where('user_id',Auth::id())->exists())
+            {
+                $cartItem = Cart::where('product_id',$product_id)->where('user_id',Auth::id())->first();
+                $cartItem->product_qty = $product_qty;
+                $cartItem->update();
+                return response()->json(['status' => "Adet güncellendi"]);
+            }              
+        }
+    }
+    
     public function deleteProduct(Request $request)
     {
         $product_id = $request->input('product_id');
@@ -58,8 +77,16 @@ class CartController extends Controller
             else{
                 
                 return response()->json(['status' => "Başarısız!!!"]);
-            }
-                
+            }               
         }
     }
+
+
+    public function cartCount()
+    {
+        $cartCount = Cart::where('user_id',Auth::id())->count();
+        return response()->json(['count' => $cartCount]);
+        
+    }
+    
 }

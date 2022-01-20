@@ -1,16 +1,33 @@
+
+
 $(document).ready(function() {
+    
+    loadcart();
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    function loadcart()
+    {   
+        $.ajax({
+            method:"Get",
+            url: "/load-to-cart",         
+            success: function(response){
+                $('.cart-count').html('');
+                $('.cart-count').html(response.count);
+            }
+        });
+    }
 
     $('.addToCartBtn').click(function (e) {
         e.preventDefault();
 
         var product_id = $(this).closest('.product_data').find('.prod_id').val();          
         var product_qty = $(this).closest('.product_data').find('.qty-input').val();
-       
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+    
 
         $.ajax({
             method:"POST",
@@ -21,6 +38,7 @@ $(document).ready(function() {
             },
             success: function(response){
                 swal(response.status);
+                loadcart();
             }
         });
 
@@ -54,18 +72,12 @@ $(document).ready(function() {
 
     });    
 
+
     $('.delete-cart-item').click(function (e) {
         e.preventDefault();
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         var product_id = $(this).closest('.product_data').find('.prod_id').val();   
-           alert(product_id); 
-                    
+          
         $.ajax({
             method:"POST",
             url: "delete-cart",
@@ -79,4 +91,27 @@ $(document).ready(function() {
         });
 
     }); 
+
+
+    $('.changeQuantity').click(function (e) {
+        e.preventDefault();
+
+        var product_id = $(this).closest('.product_data').find('.prod_id').val();   
+        var qty = $(this).closest('.product_data').find('.qty-input').val(); 
+        data = {
+            'product_id' :product_id,
+            'product_qty' :qty,
+        }
+                    
+        $.ajax({
+            method:"POST",
+            url: "update-cart",
+            data:data,
+            success: function(response){
+                window.location.reload();
+            }
+        });
+
+    }); 
+    
 });

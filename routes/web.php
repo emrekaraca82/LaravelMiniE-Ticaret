@@ -21,7 +21,7 @@ use App\Http\Controllers\UserInterface\CartController;
 // });
 
 route::get('/',[HomeController::class, 'index']);
-route::get('shop',[HomeController::class, 'shop']);
+route::get('product',[HomeController::class, 'product']);
 route::get('category/{cate_slug}/{prod_slug}',[HomeController::class, 'product_detail']);
 route::get('category/{slug}',[HomeController::class, 'category_detail']);
 
@@ -32,6 +32,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 route::post('add-to-cart',[CartController::class, 'addProduct']);
 route::post('delete-cart',[CartController::class, 'deleteProduct']);
+route::post('update-cart',[CartController::class, 'updateProduct']);
+route::get('load-to-cart',[CartController::class, 'cartCount']);
 
 Route::middleware(['auth'])->group(function () {
     route::get('cart',[CartController::class, 'cartView']);

@@ -77,8 +77,7 @@
             <nav class="amado-nav">
                 <ul>
                     <li class="active"><a href="/">Home</a></li>
-                    <li><a href="shop">Shop</a></li>
-                    <li><a href="product-details">Product</a></li>
+                    <li><a href="product">Product</a></li>
                     <li><a href="cart">Cart</a></li>
                     <li><a href="checkout">Checkout</a></li>
                 </ul>
@@ -88,7 +87,7 @@
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
+                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">{{Auth::user()->name}} Panel</a>
                     @else
                       
                         <a href="{{ route('login') }}" class="btn amado-btn mb-15">Login</a>
@@ -104,7 +103,7 @@
             </div>
             <!-- Cart Menu -->
             <div class="cart-fav-search mb-100">
-                <a href="cart.html" class="cart-nav"><img src="{{asset('styles/img/core-img/cart.png') }}" alt=""> Cart <span>(0)</span></a>
+                <a href="cart" class="cart-nav"><img src="{{asset('styles/img/core-img/cart.png') }}" alt=""> Cart (<span style="color:#fbb710;" class="cart-count"></span>) </a>
                 <a href="#" class="fav-nav"><img src="{{asset('styles/img/core-img/favorites.png') }}" alt=""> Favourite</a>
                 <a href="#" class="search-nav"><img src="{{asset('styles/img/core-img/search.png') }}" alt=""> Search</a>
             </div>

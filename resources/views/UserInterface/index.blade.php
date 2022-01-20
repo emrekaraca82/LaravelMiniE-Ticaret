@@ -5,8 +5,8 @@
             @foreach($getProduct as $product)	
                 <!-- Single Catagory -->
                 <div class="single-products-catagory clearfix mt-5">
-                    <a href="shop.html">
-                        <img src="{{asset($product->image)}}" alt="{{ $product->baslik }}">
+                    <a href="product">
+                        <img style="" src="{{asset($product->image)}}" alt="{{ $product->baslik }}">
                         <!-- Hover Content -->
                         <div class="hover-content">
                             <div class="line"></div>

@@ -39,7 +39,7 @@
             <!-- Product Meta Data -->
             <div class="product-meta-data">
                 <div class="line"></div>
-                <p class="product-price">${{$products->price}}</p>
+                <p class="product-price">{{$products->price}}$</p>
                 <a href="product-details.html">
                     <h6>{{$products->baslik}}</h6>
                 </a>

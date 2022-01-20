@@ -13,13 +13,15 @@
                                 <thead>
                                     <tr>
                                         <th style="max-width: 20%;">Resim</th>
-                                        <th style="max-width: 20%;">Name</th>
-                                        <th style="max-width: 20%;">Price</th>
-                                        <th style="max-width: 20%;">Quantity</th>
+                                        <th style="max-width: 20%;">Ürün</th>
+                                        <th style="max-width: 20%;">B.Fiyat</th>
+                                        <th style="max-width: 20%;">Adet</th>
                                         <th style="max-width: 20%;">İşlemler</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @php $subtotal =0; @endphp
+                                @php $total =0; @endphp
                                 @foreach($cartItems as $item)	
                               
                                     <tr class="product_data">
@@ -36,9 +38,9 @@
                                         <input type="hidden" value="{{$item->product_id}}" class="prod_id">
                                             <div class="qty-btn d-flex ">                                          
                                                 <div class="quantity">
-                                                <span class="qty-plus increment-btn"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                                <span class="qty-plus changeQuantity increment-btn"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                                     <input type="text" name="quantity" class="form-control qty-input text-center" value="{{$item->product_qty}}">
-                                                <span class="qty-minus decrement-btn"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                                <span class="qty-minus changeQuantity decrement-btn"><i class="fa fa-minus" aria-hidden="true"></i></span>
                                                 </div>                                       
                                             </div>
                                             
@@ -47,23 +49,25 @@
                                             <button class="btn-sm btn-danger delete-cart-item">Sil</button>
                                         </td>
                                     </tr>
-                                    
+                                    @php $subtotal += $item->getProducts->price * $item->product_qty; @endphp
+                                    @php $total += ($item->getProducts->price * $item->product_qty)-10; @endphp
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="col-12 col-lg-3">
-                        <div class="cart-summary">
+                        <div class="cart-summary"> 
                             <h5>Cart Total</h5>
                             <ul class="summary-table">
-                                <li><span>subtotal:</span> <span>$140.00</span></li>
-                                <li><span>delivery:</span> <span>Free</span></li>
-                                <li><span>total:</span> <span>$140.00</span></li>
+                                <li><span>ara toplam:</span> <span>${{$subtotal}}</span></li>
+                                <li><span>teslimat:</span> <span>$10</span></li>
+                                <li><span>toplam:</span> <span>${{$total}}</span></li>
                             </ul>
                             <div class="cart-btn mt-100">
                                 <a href="cart.html" class="btn amado-btn w-100">Checkout</a>
                             </div>
+                           
                         </div>
                     </div>
                 </div>

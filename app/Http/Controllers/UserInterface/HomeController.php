@@ -14,11 +14,11 @@ class HomeController extends Controller
         return view('UserInterface.index',compact('getProduct'));
     }
 
-    public function shop()
+    public function product()
     {       
         $getCategory = Category::where('status','active')->get();
-        $getProduct =  Product::where('status','active')->paginate(6);
-        return view('UserInterface.shop',compact('getCategory','getProduct'));
+        $getProduct =  Product::where('status','active')->paginate(12);
+        return view('UserInterface.product',compact('getCategory','getProduct'));
     }
 
     public function category_detail($slug)
