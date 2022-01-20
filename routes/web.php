@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\UserInterface\HomeController;
+use App\Http\Controllers\UserInterface\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,13 +16,26 @@ use App\Http\Controllers\Admin\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('UserInterface.index');
+// });
+
+route::get('/',[HomeController::class, 'index']);
+route::get('shop',[HomeController::class, 'shop']);
+route::get('category/{cate_slug}/{prod_slug}',[HomeController::class, 'product_detail']);
+route::get('category/{slug}',[HomeController::class, 'category_detail']);
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+route::post('add-to-cart',[CartController::class, 'addProduct']);
+route::post('delete-cart',[CartController::class, 'deleteProduct']);
+
+Route::middleware(['auth'])->group(function () {
+    route::get('cart',[CartController::class, 'cartView']);
+});
 
 
 Route::group(['middleware'=>['auth','isAdmin'],'prefix'=>'admin'],function()
